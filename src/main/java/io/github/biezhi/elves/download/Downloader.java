@@ -26,7 +26,7 @@ public class Downloader implements Runnable {
 
     @Override
     public void run() {
-        log.debug("[{}] 开始请求", request.getUrl());
+        log.debug("开始请求 - [{}]", request.getUrl());
         io.github.biezhi.request.Request httpReq = null;
         if ("get".equalsIgnoreCase(request.method())) {
             httpReq = io.github.biezhi.request.Request.get(request.getUrl());
@@ -42,7 +42,7 @@ public class Downloader implements Runnable {
         int code = req.code();
         InputStream result = req.stream();
 
-        log.debug("[{}] 下载完毕", request.getUrl());
+        log.debug("[HTTP-{}] {}",code, request.getUrl());
         Response response = new Response(request, code, result);
         scheduler.addResponse(response);
     }

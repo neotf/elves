@@ -22,6 +22,11 @@ public class Config implements Cloneable {
     private int delay = 1000;
 
     /**
+     * 间隔偏移量
+     */
+    private int delayOffset = delay;
+
+    /**
      * 下载线程数
      */
     private int parallelThreads = Runtime.getRuntime().availableProcessors() * 2;
@@ -53,6 +58,15 @@ public class Config implements Cloneable {
 
     public long delay() {
         return this.delay;
+    }
+
+    public int delayOffset() {
+        return delayOffset;
+    }
+
+    public Config delayOffset(int delayOffset) {
+        this.delayOffset = delayOffset;
+        return this;
     }
 
     public Config parallelThreads(int parallelThreads) {

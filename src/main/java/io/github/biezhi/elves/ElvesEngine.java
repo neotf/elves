@@ -16,6 +16,7 @@ import io.github.biezhi.elves.utils.NamedThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -80,7 +81,9 @@ public class ElvesEngine {
                 }
                 Request request = scheduler.nextRequest();
                 executorService.submit(new Downloader(scheduler, request));
-                ElvesUtils.sleep(request.getSpider().getConfig().delay());
+                Random r = new Random();
+                Config cfg = request.getSpider().getConfig();
+                ElvesUtils.sleep(cfg.delay()+r.nextInt(cfg.delayOffset()));
             }
         });
         downloadTread.setDaemon(true);
