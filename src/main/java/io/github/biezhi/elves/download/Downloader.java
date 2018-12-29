@@ -30,9 +30,10 @@ public class Downloader implements Runnable {
         io.github.biezhi.request.Request httpReq = null;
         if ("get".equalsIgnoreCase(request.method())) {
             httpReq = io.github.biezhi.request.Request.get(request.getUrl());
-        }
-        if ("post".equalsIgnoreCase(request.method())) {
+        }else if ("post".equalsIgnoreCase(request.method())) {
             httpReq = io.github.biezhi.request.Request.post(request.getUrl());
+        }else{
+            return;
         }
 
         io.github.biezhi.request.Request req = httpReq.contentType(request.contentType()).headers(request.getHeaders())
@@ -42,7 +43,7 @@ public class Downloader implements Runnable {
         int code = req.code();
         InputStream result = req.stream();
 
-        log.debug("[HTTP-{}] {}",code, request.getUrl());
+        log.debug("HTTP-{} - [{}]",code, request.getUrl());
         Response response = new Response(request, code, result);
         scheduler.addResponse(response);
     }

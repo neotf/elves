@@ -83,7 +83,7 @@ public class ElvesEngine {
                 executorService.submit(new Downloader(scheduler, request));
                 Random r = new Random();
                 Config cfg = request.getSpider().getConfig();
-                ElvesUtils.sleep(cfg.delay()+r.nextInt(cfg.delayOffset()));
+                ElvesUtils.sleep(cfg.delay()+(cfg.delayOffset()==0?0:r.nextInt(cfg.delayOffset())));
             }
         });
         downloadTread.setDaemon(true);

@@ -24,12 +24,12 @@ public class Config implements Cloneable {
     /**
      * 间隔偏移量
      */
-    private int delayOffset = delay;
+    private int delayOffset = 500;
 
     /**
      * 下载线程数
      */
-    private int parallelThreads = Runtime.getRuntime().availableProcessors() * 2;
+    private int parallelThreads = Runtime.getRuntime().availableProcessors() * 4;
 
     /**
      * UserAgent
