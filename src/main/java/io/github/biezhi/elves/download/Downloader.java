@@ -17,7 +17,7 @@ import java.io.InputStream;
 public class Downloader implements Runnable {
 
     private final Scheduler scheduler;
-    private final Request   request;
+    private final Request request;
 
     public Downloader(Scheduler scheduler, Request request) {
         this.scheduler = scheduler;
@@ -35,13 +35,15 @@ public class Downloader implements Runnable {
             httpReq = io.github.biezhi.request.Request.post(request.getUrl());
         }
 
-        InputStream result = httpReq.contentType(request.contentType()).headers(request.getHeaders())
+        io.github.biezhi.request.Request req = httpReq.contentType(request.contentType()).headers(request.getHeaders())
                 .connectTimeout(request.getSpider().getConfig().timeout())
-                .readTimeout(request.getSpider().getConfig().timeout())
-                .stream();
+                .readTimeout(request.getSpider().getConfig().timeout());
+
+        int code = req.code();
+        InputStream result = req.stream();
 
         log.debug("[{}] 下载完毕", request.getUrl());
-        Response response = new Response(request, result);
+        Response response = new Response(request, code, result);
         scheduler.addResponse(response);
     }
 

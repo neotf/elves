@@ -15,15 +15,21 @@ public class Response {
 
     @Getter
     private Request request;
-    private Body    body;
+    private Body body;
+    private int code;
 
-    public Response(Request request, InputStream inputStream) {
+    public Response(Request request, int code, InputStream inputStream) {
         this.request = request;
+        this.code = code;
         this.body = new Body(inputStream, request.charset());
     }
 
     public Body body() {
         return body;
+    }
+
+    public int code() {
+        return code;
     }
 
 }
